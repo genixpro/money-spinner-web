@@ -1,6 +1,8 @@
 import React from 'react';
 // import axios from "axios/index";
 import GameCell from "./GameCell";
+import GamePerson from "./GamePerson";
+import GameBuildingObject from "./GameBuildingObject";
 
 
 
@@ -39,7 +41,7 @@ class GameGrid extends React.Component
 
     zoomOut(evt)
     {
-        if (this.state.cellSize > 32)
+        if (this.state.cellSize > 24)
         {
             const cellCoords = this.getCellCoordsAtViewportPosition(evt.pageX, evt.pageY)
             const pageX = evt.pageX;
@@ -158,7 +160,39 @@ class GameGrid extends React.Component
                         return null;
                     }
 
-                    return <GameCell cell={cell} size={this.state.cellSize} viewportX={this.state.viewportX} viewportY={this.state.viewportY} key={`${cell.x},${cell.y}`} />
+                    return <GameCell cell={cell} size={this.state.cellSize} viewportX={this.state.viewportX} viewportY={this.state.viewportY} key={`cell-${cell.x},${cell.y}`} />
+                })
+            }
+
+            {
+                this.props.people.map((person) =>
+                {
+                    if (person.x > viewportRightInCells || person.y > viewportBottomInCells)
+                    {
+                        return null;
+                    }
+                    if (person.x < viewportLeftInCells || person.y < viewportTopInCells)
+                    {
+                        return null;
+                    }
+
+                    return <GamePerson person={person} size={this.state.cellSize} viewportX={this.state.viewportX} viewportY={this.state.viewportY} key={`person-${person.id}`} />
+                })
+            }
+
+            {
+                this.props.buildingObjects.map((buildingObject) =>
+                {
+                    if (buildingObject.x > viewportRightInCells || buildingObject.y > viewportBottomInCells)
+                    {
+                        return null;
+                    }
+                    if (buildingObject.x < viewportLeftInCells || buildingObject.y < viewportTopInCells)
+                    {
+                        return null;
+                    }
+
+                    return <GameBuildingObject buildingObject={buildingObject} size={this.state.cellSize} viewportX={this.state.viewportX} viewportY={this.state.viewportY} key={`building-object-${buildingObject.id}`} />
                 })
             }
         </div>

@@ -1,11 +1,11 @@
 import React from 'react';
 
 
-class GameCell extends React.Component
+class GamePerson extends React.Component
 {
     render() {
-        const gameX = this.props.cell.x;
-        const gameY = this.props.cell.y;
+        const gameX = this.props.person.x;
+        const gameY = this.props.person.y;
 
         return <div style={{
             "position": "absolute",
@@ -13,8 +13,7 @@ class GameCell extends React.Component
             "top": `${gameY * this.props.size + this.props.viewportY}px`,
             "width": `${this.props.size}px`,
             "height": `${this.props.size}px`,
-            // "border": "1px dotted grey",
-            "backgroundImage": `url('/images/${this.props.cell.type}.png')`,
+            "backgroundImage": `url('/images/person.png')`,
             "backgroundRepeat": "no-repeat",
             // "backgroundAttachment": "fixed",
             "backgroundSize": "100% 100%",
@@ -29,6 +28,6 @@ class GameCell extends React.Component
 
 
 
-export default GameCell;
+export default GamePerson;
 
 

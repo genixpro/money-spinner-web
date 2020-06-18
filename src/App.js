@@ -8,7 +8,9 @@ axios.defaults.baseURL = "http://localhost:42424/";
 class App extends React.Component
 {
   state = {
-    cells: []
+    cells: [],
+    people: [],
+    buildingObjects: []
   }
 
   componentDidMount()
@@ -16,6 +18,16 @@ class App extends React.Component
     axios.get(`/grid`, {json: true}).then((response) =>
     {
       this.setState({cells: response.data.cells});
+    })
+
+    axios.get(`/people`, {json: true}).then((response) =>
+    {
+      this.setState({people: response.data.people});
+    })
+
+    axios.get(`/building_objects`, {json: true}).then((response) =>
+    {
+      this.setState({buildingObjects: response.data.buildingObjects});
     })
   }
 
@@ -25,7 +37,7 @@ class App extends React.Component
     return (
       <div className="App">
 
-        <GameGrid cells={this.state.cells} />
+        <GameGrid cells={this.state.cells} people={this.state.people} buildingObjects={this.state.buildingObjects} />
 
       </div>
     );
